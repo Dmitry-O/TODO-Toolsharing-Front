@@ -38,6 +38,60 @@
 }
 
 .nav-link {
+  font-size: xx-large;
+  color: rgb(0, 50, 216);
+}
+
+.nav-link:hover {
+  border-top: 3px solid rgb(52, 53, 148);
+  color: rgb(52, 53, 148);
+}
+
+.navb {
+  background-color: white;
+}
+
+.jumbotext {
+  text-indent: 20px;
+  color: white;
+}
+
+.jumbo {
+  background-color: dodgerblue;
+  opacity: 100%;
+}
+
+.align-self-left {
+  align-self: left;
+}
+
+.pBtn {
+  margin-right: 52%;
+}
+
+.hr1 {
+  background-color: dodgerblue;
+  width: 10%;
+  justify-self: center;
+  height: 2px;
+}
+
+body {
+  background: url(bg.jpg); /* Фоновый цвет и фоновый рисунок*/
+  color: #fff; /*Цвет текста на странице*/
+  background-attachment: fixed; /* Фон страницы фиксируется */
+  background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
+}
+
+.stroke {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.toolDetail {
   color: black;
-  background-color: #282c34;
+}
+
+.dropdown {
+  
 }

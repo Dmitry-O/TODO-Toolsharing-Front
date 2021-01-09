@@ -1,0 +1,23 @@
+{
+    "tools": [
+        {
+            "name": "Perforator",
+            "description": "This is the most awesome instrument you've ever seen!",
+            "image": "https://static.onlinetrade.ru/img/items/m/perforator_makita_hr2470x19_1449222_1.jpg",
+            "price": 1000,
+            "featured": "true",
+            "comments": [
+                {
+                    "rating": "4",
+                    "comment": "Some text lalalla",
+                    "author": "John Welik"
+                },
+                {
+                    "rating": "2",
+                    "comment": "Some text lalalla",
+                    "author": "Raso Oportunity"
+                }
+            ]
+        }
+    ]
+}
