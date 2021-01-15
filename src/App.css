@@ -77,10 +77,10 @@
 }
 
 body {
-  background: url(bg.jpg); /* Фоновый цвет и фоновый рисунок*/
-  color: #fff; /*Цвет текста на странице*/
-  background-attachment: fixed; /* Фон страницы фиксируется */
-  background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
+  background: url(bg.jpg);
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 .stroke {
