@@ -1,11 +1,72 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Jumbotron, Button, Media} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 
-class Home extends React.Component {
-    render() {
+const Home = (props) => {
+    const items = [
+        {
+          src: "carousel_bg_1.jpg",
+          altText: 'Slide 1',
+          caption: 'Slide 1'
+        },
+        {
+          src: "carousel_bg_2.jpg",
+          altText: 'Slide 2',
+          caption: 'Slide 2'
+        },
+        {
+          src: "carousel_bg_3.jpg",
+          altText: 'Slide 3',
+          caption: 'Slide 3'
+        }
+      ];
+
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [animating, setAnimating] = useState(false);
+
+    const next = () => {
+        if (animating) return;
+        const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+        setActiveIndex(nextIndex);
+    }
+
+    const previous = () => {
+        if (animating) return;
+        const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+        setActiveIndex(nextIndex);
+    }
+
+    const goToIndex = (newIndex) => {
+        if (animating) return;
+        setActiveIndex(newIndex);
+    }
+
+    const slides = items.map((item) => {
+        return (
+            <CarouselItem
+                onExiting={() => setAnimating(true)}
+                onExited={() => setAnimating(false)}
+                key={item.src}
+            >
+                <Media className="col-12" style={{height: "600px"}} src={item.src} alt={item.altText} />
+                <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+            </CarouselItem>
+        );
+    });
+
         return (
             <>
+                <Carousel
+                    activeIndex={activeIndex}
+                    next={next}
+                    previous={previous}
+                >
+                    <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+                    {slides}
+                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+                    <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+                </Carousel>
                 <Jumbotron className="jumbo">
                     <div className="container">
                         <div className="row row-header">
@@ -19,7 +80,7 @@ class Home extends React.Component {
                                     <p className="jumbotext">Breafly talking it's your opportunity to be with us
                                     via sharing your tools and instruments as long as you can do it!</p>
                                     <br/>
-                                    <p className="jumbotext">Hoping we can be a good team to lead your problems and see what will happens
+                                    <p className="jumbotext">Hoping we can be a good team to deal with your problems and see what will happens
                                     to you and to your family that we don't care of at all! :)</p>
                                 </h5>
                             </div>
@@ -40,7 +101,6 @@ class Home extends React.Component {
                 </div>
             </>
         );
-    }
 }
 
 export default Home;

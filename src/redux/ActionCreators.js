@@ -79,9 +79,49 @@ export const loginUser = (creds) => (dispatch) => {
         if (response.ok) {
             return response;
         } else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
+            if (response.status === 401) {
+                return fetch(baseUrl + 'users/signup', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type':'application/json' 
+                    },
+                    body: JSON.stringify(creds)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return fetch(baseUrl + 'users/login', {
+                            method: 'POST',
+                            headers: { 
+                                'Content-Type':'application/json' 
+                            },
+                            body: JSON.stringify(creds)
+                        })
+                        .then(response => {
+                            if (response.ok)
+                                return response;
+                            else {
+                                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                                error.response = response;
+                                throw error;
+                            }
+                        },
+                        error => { throw error; }
+                        )
+                    }
+                    else {
+                        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                        error.response = response;
+                        throw error;
+                    }
+                },
+                error => { throw error; }
+                )
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
         }
         },
         error => {
@@ -226,4 +266,185 @@ export const wishlistFailed = (errmess) => ({
 export const addWishlist = (wishlist) => ({
     type: ActionTypes.ADD_WISHLIST,
     payload: wishlist
+});
+
+
+export const postRentedTools = (rentedTool) => (dispatch) => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'rentedTools', {
+        method: "POST",
+        body: JSON.stringify(rentedTool),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(rentedTools => { console.log('RentedTools Added', rentedTools); dispatch(addRentedTools(rentedTools)); })
+    .catch(error => dispatch(rentedToolsFailed(error.message)));
+}
+
+export const fetchRentedTools = () => (dispatch) => {
+    dispatch(rentedToolsLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'rentedTools', {
+        headers: {
+            'Authorization': bearer
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(rentedTools => dispatch(addRentedTools(rentedTools)))
+    .catch(error => dispatch(rentedToolsFailed(error.message)));
+}
+
+export const rentedToolsLoading = () => ({
+    type: ActionTypes.RENTEDTOOLS_LOADING
+});
+
+export const rentedToolsFailed = (errmess) => ({
+    type: ActionTypes.RENTEDTOOLS_FAILED,
+    payload: errmess
+});
+
+export const addRentedTools = (rentedTools) => ({
+    type: ActionTypes.ADD_RENTEDTOOLS,
+    payload: rentedTools
+});
+
+export const putAccount = (info) => (dispatch) => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'users/account', {
+        method: "PUT",
+        body: JSON.stringify(info),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(info => { console.log('Account info Changed!', info); dispatch(addAccount(info)); })
+    .catch(error => dispatch(accountFailed(error.message)));
+}
+
+export const fetchAccount = () => (dispatch) => {
+    dispatch(accountLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'users/account', {
+        headers: {
+            'Authorization': bearer
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(account => dispatch(addAccount(account)))
+    .catch(error => dispatch(accountFailed(error.message)));
+}
+
+export const returnAccount = () => (dispatch) => {
+    //dispatch(accountLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    var resp; 
+
+    fetch(baseUrl + 'users/account', {
+        headers: {
+            'Authorization': bearer
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => { 
+        response.json();
+        resp = response.json();  
+    })
+    .catch(err => console.log("Error! " + err));
+
+    return resp;
+}
+
+export const accountLoading = () => ({
+    type: ActionTypes.ACCOUNT_LOADING
+});
+
+export const accountFailed = (errmess) => ({
+    type: ActionTypes.ACCOUNT_FAILED,
+    payload: errmess
+});
+
+export const addAccount = (account) => ({
+    type: ActionTypes.ADD_ACCOUNT,
+    payload: account
 });

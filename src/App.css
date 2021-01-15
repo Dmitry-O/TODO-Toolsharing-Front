@@ -92,6 +92,6 @@ body {
   color: black;
 }
 
-.dropdown {
-  
+.toolLink:hover {
+  color:rgb(0, 50, 216);
 }

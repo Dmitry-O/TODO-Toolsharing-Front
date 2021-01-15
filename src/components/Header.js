@@ -67,7 +67,7 @@ class Header extends Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link" to="/tools">
-                                    <span className="fa fa-list fa-lg"></span> Tools
+                                    <span className="fa fa-gear fa-lg"></span> Tools
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -76,13 +76,8 @@ class Header extends Component {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to="/wishlist">
-                                    <span className="fa fa-heart fa-lg"></span> My Wishlist
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
                                 <NavLink className="nav-link" to="/contacts">
-                                    <span className="fa fa-info fa-lg"></span> Contacts
+                                    <span className="fa fa-address-card fa-lg"></span> Contacts
                                 </NavLink>
                             </NavItem>
                         </Nav>
@@ -94,11 +89,21 @@ class Header extends Component {
                                         &nbsp;{this.props.auth.user.username}
                                     </DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem header>Tools</DropdownItem>
-                                        <DropdownItem disabled>Action</DropdownItem>
-                                        <DropdownItem>Another Action</DropdownItem>
-                                        <DropdownItem divider />
-                                        <DropdownItem>Another Action</DropdownItem>
+                                        <DropdownItem>
+                                            <Link to="/account" style={{textDecoration: 'none'}}>
+                                                <span className="fa fa-user fa-lg"></span> My Account
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link to="/wishlist" style={{textDecoration: 'none'}}>
+                                                <span className="fa fa-heart fa-lg"></span> My Wishlist
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link to="/rentedTools" style={{textDecoration: 'none'}}>
+                                                <span className="fa fa-gear fa-lg"></span> My Rented Tools
+                                            </Link>
+                                        </DropdownItem>
                                     </DropdownMenu>
                                 </ButtonDropdown>
                                 :
@@ -152,7 +157,7 @@ class Header extends Component {
                 </div>
             
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal} className="text-dark">Login</ModalHeader>
+                    <ModalHeader toggle={this.toggleModal} className="text-dark">Sign up/Login</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
                             <FormGroup>
@@ -172,7 +177,7 @@ class Header extends Component {
                                     Remember me
                                 </Label>
                             </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
+                            <Button type="submit" value="submit" color="primary">Sign in</Button>
                         </Form>
                     </ModalBody>
                 </Modal>
