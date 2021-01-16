@@ -8,6 +8,8 @@ import ToolDetails from './ToolDetails';
 import Wishlist from './Wishlist';
 import Account from './Account';
 import RentedTools from './RentedTools';
+import Contacts from './Contacts';
+import About from './About';
 import {connect} from 'react-redux';
 import {fetchTools, loginUser, logoutUser, fetchWishlist, postWishlist, deleteWishlist, fetchRentedTools, postRentedTools, fetchAccount, putAccount, returnAccount } from '../redux/ActionCreators';
 import {actions} from 'react-redux-form';
@@ -81,6 +83,8 @@ class Main extends React.Component {
                     <Route path="/home" component={() => <Home/>}/>
                     <Route exact path="/tools" component={() => <Tools tools={this.props.tools.tools}/>}/>
                     <Route path="/tools/:toolId" component={ToolWithId}/>
+                    <Route exact path="/contacts" component={() => <Contacts/>}/>
+                    <Route exact path="/about" component={() => <About/>}/>
                     <PrivateRoute exact path="/wishlist" component={() => <Wishlist wishlist={this.props.wishlist.wishlist} deleteWishlist={this.props.deleteWishlist} />} />
                     <PrivateRoute exact path="/rentedTools" component={() => <RentedTools rentedTools={this.props.rentedTools.rentedTools}/>} />
                     <PrivateRoute exact path="/account" component={() => <Account account={this.props.wishlist.wishlist.user} putAccount={this.props.putAccount}/>}/>

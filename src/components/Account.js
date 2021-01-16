@@ -24,7 +24,8 @@ const Account = (props) => {
 
     return (
         <div className="mt-3 container" style={container}>
-            <div className="col-5">
+            <h3>Here you can add or change your personal information</h3>
+            <div className="col-12 col-md-8">
                 <Row className="row form-group text-dark">
                     <Label htmlFor="firstname" md={4}>First Name</Label>
                     <Col md={8}>

@@ -7,18 +7,18 @@ const Home = (props) => {
     const items = [
         {
           src: "carousel_bg_1.jpg",
-          altText: 'Slide 1',
-          caption: 'Slide 1'
+          altText: 'carousel_bg_1.jpg',
+          caption: 'Very useful instruments'
         },
         {
           src: "carousel_bg_2.jpg",
-          altText: 'Slide 2',
-          caption: 'Slide 2'
+          altText: 'carousel_bg_2.jpg',
+          caption: 'Get what you want quickly'
         },
         {
           src: "carousel_bg_3.jpg",
-          altText: 'Slide 3',
-          caption: 'Slide 3'
+          altText: 'carousel_bg_3.jpg',
+          caption: 'We want you to make a great future with us!'
         }
       ];
 
@@ -50,7 +50,7 @@ const Home = (props) => {
                 key={item.src}
             >
                 <Media className="col-12" style={{height: "600px"}} src={item.src} alt={item.altText} />
-                <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+                <CarouselCaption className="text-dark" captionHeader={item.caption} />
             </CarouselItem>
         );
     });
